@@ -31,22 +31,19 @@ string lastchar(string s[], int size)
 		return result;
 	}
 int main(){
-	int starttest;
-	cout << "Encrypt(Press 1) or Decrypt(Press 2): ";
-	cin >> starttest;
-	if (starttest == 1) {
-		cout << "Your text is: ";
-		string text;
-		cin >>text;
-		int size = text.length();
-		string rotations[size];
-		string result = "";
-		genRotations(text, rotations);
-		sort(rotations[0],rotations[size]);
-		result = lastchar(rotations,size);
-		cout << result;
+	cout << "Your text is: ";
+	string text;
+	cin >>text;
+	int size = text.length();
+	string rotations[size];
+	string result = "";
+	genRotations(text, rotations);
+// alphabet sort code. ???
 
-    }
+	result = lastchar(rotations,size);
+	cout <<endl <<"bwt = " << result;
+
+    
 
 	return 0;
 }
