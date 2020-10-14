@@ -1,12 +1,12 @@
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<string>
 #include<fstream>
-#include <stdio.h>
-#include <stdlib.h>
+
 #include<algorithm>
 #include<array>
 #include<string.h>
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<vector>
 
 using namespace std;
 
@@ -21,7 +21,7 @@ void genRotations(string source, string s[] ){
 	}
 }
 
-string lastchar(string s[], int size)
+string lastchar(vector<string> s, int size)
 	{
 		string result = "";
 		for (int i=0; i < size; i++)
@@ -30,20 +30,51 @@ string lastchar(string s[], int size)
 		}
 		return result;
 	}
+
+
+bool mycomp(string a, string b){
+	return a<b;}
+//////
+
+void findkey (string source, vector<string> v){
+	int key;
+	for (int i=0; i <source.length(); i++){
+		string match = v[i];
+		while (match == source) {
+			key = i;
+			cout << "key = " << key << endl;
+			return;
+		}
+	}
+}
+
 int main(){
-	cout << "Your text is: ";
-	string text;
-	cin >>text;
-	int size = text.length();
-	string rotations[size];
-	string result = "";
-	genRotations(text, rotations);
-// alphabet sort code. ???
+	int starttest;
+	cout << "Encrypt(Press 1) or Decrypt(Press 2): ";
+	cin >> starttest;
+	if (starttest == 1) {
+		cout << "Your text is: ";
+		string text;
+		cin >>text;
+		int size = text.length();
+		string rotations[size];
+		string result = "";
+		genRotations(text, rotations);
 
-	result = lastchar(rotations,size);
-	cout <<endl <<"bwt = " << result;
+        cout << endl;
+		vector<string> v;
+		for (int i=0; i < size; i++){
+		    v.push_back(rotations[i]);
+		}
 
-    
+		sort(v.begin(), v.end(), mycomp);
+		for (int i=0; i < size; i++){
+		    cout << v[i] <<endl;
+		}
+		result = lastchar(v,size);
+		cout << endl << "bwt = " << result << endl;
+		findkey(text, v);
 
-	return 0;
+    }
+
 }
