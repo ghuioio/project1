@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-// mở file
+
 string open_file(string F){
     ifstream fileInput;
 	fileInput.open(F);
@@ -18,7 +18,7 @@ string open_file(string F){
 	{
 		string s;
 		getline(fileInput, s);
-		file_contents += s + "\n";
+		file_contents += s ;
 	}
 
 	//file_contents.pop_back();
@@ -36,8 +36,8 @@ string charToBin(unsigned char c)
 
 	return ch;
 }
-//nén xâu nhị phân thành xâu ký tự trong file encode
-void enzip(string str){
+
+string enzip(string str){
 
     ofstream fileOutput;
 	fileOutput.open("Encode.txt");
@@ -49,7 +49,6 @@ void enzip(string str){
 	}
 
 
-	//chuyển dãy nhị phân thành chuỗi và lưu vào file nén
 	while ((unsigned int)str.length() >= 8)
 	{
 		string byte = str.substr(0, 8);
@@ -58,19 +57,11 @@ void enzip(string str){
 		fileOutput.write(&toWrite, sizeof(unsigned char));
 		str = str.substr(8, str.length() - 8);
 	}
-	int n;
-	n = str.size();
-	//lưu dãy còn dư vào file (xử lý đuôi)
-	for (int i = 0; i < n; i++)
-	{
-		fileOutput.write(&str[i], sizeof(unsigned char));
-	}
-    fileOutput << str << endl;
+  
 	fileOutput.close();
-
-
-
-
+	return str;
+}
+string dezip(string str){
     ifstream fileInput2;
 	fileInput2.open("Encode.txt");
 
@@ -84,27 +75,18 @@ void enzip(string str){
 	{
 		string s;
 		getline(fileInput2, s);
-		bitStream += s + "\n";
+		bitStream += s ;
 	}
-
-    //int n = bitStream.length();
-	bitStream.pop_back();
+	//bitStream.pop_back();
 	fileInput2.close();
-
+ 
 	string str3 = "";
-	for (int i = 0; i < bitStream.size() - n; i++)
+	for (int i = 0; i < bitStream.size(); i++)
 	{
 		str3 += charToBin(bitStream[i]);
 	}
 
-	for (int i = bitStream.size() - n; i < bitStream.size(); i++)
-	{
-		str3 += bitStream[i];
-	}
+	str3 += str;
 	str = str3;
-	cout << str;
+	return str;
 }
-// biến xâu ký tự thành xâu nhị phân
-
-
-// đưa ra xâu nhị phân
