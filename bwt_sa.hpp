@@ -1,12 +1,4 @@
-#include<iostream>
-#include<string>
-#include<fstream>
-#include<algorithm>
-#include<array>
-#include<string.h>
 #include<bits/stdc++.h>
-#include<vector>
-
 using namespace std;
 
 
@@ -53,6 +45,9 @@ unsigned int find(string text, string a[],unsigned int size){
 }
 
 string BWT(string text){
+		//cout << "Your text is: ";
+		//string text;
+		//cin >>text;
 		text = text + "?";
 		unsigned int size = text.length();
 		string rotations[size];
@@ -72,10 +67,11 @@ string BWT(string text){
 		}
 		result = lastchar(x, rotations, size);
 		//cout << endl << "bwt = " << result << endl;
+		//v.clear(); delete[] x; delete[] rotations;
 		return result;
 }
 
-string Rev_BWT(string text){
+void Rev_BWT(string text){
         unsigned int size = text.length();
 		string revrotations[size];
 		vector<string> v;
@@ -87,14 +83,26 @@ string Rev_BWT(string text){
 			sort(v.begin(), v.end(), mycomp);
 			for (unsigned int i=0; i < size; i++){
 				revrotations[i] = v[i];
+				//cout << revrotations[i] << endl;
 			}
 			v.clear();
 
 		}
-	cout << endl << "RevBWT success !" << endl;
+		//cout << endl << "RevBWT success !" << endl;
         unsigned int s = find(text, revrotations, size);
         revrotations[s] = revrotations[s].substr(0, size-1);
         cout << "RevBWT  = " << revrotations[s] <<endl ;
+        //delete[] revrotations; v.clear();
+
+        ofstream Ghi;
+        Ghi.open("Decode.txt");
+        if (Ghi.fail()){
+		cout << "Failed to open this file!" << endl;
+        }
+        Ghi << revrotations[s] << endl;
+        Ghi.close();
+
+        //cout << "Decode success";
 }
 
 
